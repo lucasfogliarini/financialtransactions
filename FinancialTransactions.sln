@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1511435D-F4C3-4121-BEB5-0C1111500083}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialTransactions.Abstractions", "FinancialTransactions.Abstractions\FinancialTransactions.Abstractions.csproj", "{C8365191-A61C-4A13-85FC-0E4BBD140694}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialTransactions.Api", "FinancialTransactions.Api\FinancialTransactions.Api.csproj", "{176E6C08-18A3-4617-AF30-9E1BE7CFC70A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialTransactions.Tests.Integration", "FinancialTransactions.Tests.Integration\FinancialTransactions.Tests.Integration.csproj", "{175C5EB0-3D0A-49F6-8C25-9D5AB18893AC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialTransactions.Tests.Unit", "FinancialTransactions.Tests.Unit\FinancialTransactions.Tests.Unit.csproj", "{C036F480-E486-4C5E-846C-30255FA40D7E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancialTransactions", "FinancialTransactions\FinancialTransactions.csproj", "{7A4DA434-C6FE-4EA5-9651-F3306A19F6AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8365191-A61C-4A13-85FC-0E4BBD140694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8365191-A61C-4A13-85FC-0E4BBD140694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8365191-A61C-4A13-85FC-0E4BBD140694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8365191-A61C-4A13-85FC-0E4BBD140694}.Release|Any CPU.Build.0 = Release|Any CPU
+		{176E6C08-18A3-4617-AF30-9E1BE7CFC70A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176E6C08-18A3-4617-AF30-9E1BE7CFC70A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176E6C08-18A3-4617-AF30-9E1BE7CFC70A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176E6C08-18A3-4617-AF30-9E1BE7CFC70A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175C5EB0-3D0A-49F6-8C25-9D5AB18893AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175C5EB0-3D0A-49F6-8C25-9D5AB18893AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175C5EB0-3D0A-49F6-8C25-9D5AB18893AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175C5EB0-3D0A-49F6-8C25-9D5AB18893AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C036F480-E486-4C5E-846C-30255FA40D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C036F480-E486-4C5E-846C-30255FA40D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C036F480-E486-4C5E-846C-30255FA40D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C036F480-E486-4C5E-846C-30255FA40D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A4DA434-C6FE-4EA5-9651-F3306A19F6AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A4DA434-C6FE-4EA5-9651-F3306A19F6AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A4DA434-C6FE-4EA5-9651-F3306A19F6AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A4DA434-C6FE-4EA5-9651-F3306A19F6AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5403F4B8-46A2-45AA-81C4-18ED4CC4DD76}
+	EndGlobalSection
+EndGlobal

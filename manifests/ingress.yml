@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+    name: "api-ingress"
+    labels:
+        app: "api-ingress"
+spec:
+    tls:
+    - hosts:
+      - api.divagando.org
+      secretName: divagando-tls
+    rules:
+      - host: api.divagando.org
+        http:
+          paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: "api-service"
+                port: 
+                  number: 80
