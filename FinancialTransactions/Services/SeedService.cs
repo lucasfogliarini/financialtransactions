@@ -23,13 +23,8 @@ namespace FinancialTransactions.Services
         {
             try
             {
-                _accountService.CreateAsync("lucasfogliarini@gmail.com");
-                _accountService.CreateAsync("luanabuenoflores@gmail.com");
-                _accountService.CreateAsync("gui_staub@hotmail.com");
-                _accountService.CreateAsync("felipealmeida1395@gmail.com");
-                _accountService.CreateAsync("ricardoschieck@gmail.com");
-                _accountService.CreateAsync("grhorlle@gmail.com");
-                _accountService.CreateAsync("jonathan.m.m@live.com");
+                _accountService.CreateAsync("finance@totvs.com", "TOTVS");
+                _accountService.CreateAsync("finance@supplier.com", "Supplier");
 
                 //CreateParticipant("lucasfogliarini", "Lucas Fogliarini Pedroso", "51992364249", "lucasfogliarini@gmail.com");
                 //CreateParticipant("luanabueno", "Luana Bueno", "5193840006", "luanabuenoflores@gmail.com");

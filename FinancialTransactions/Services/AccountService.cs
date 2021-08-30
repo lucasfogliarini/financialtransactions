@@ -18,10 +18,11 @@ namespace FinancialTransactions.Services
         {
             _financialTransactionsDatabase = database;
         }
-        public async Task<ILegalPerson> CreateAsync(string email)
+        public async Task<ILegalPerson> CreateAsync(string email, string name = null)
         {
             var account = new Account
             {
+                Name = name,
                 Email = email,
                 CreationTime = DateTime.Now
             };
