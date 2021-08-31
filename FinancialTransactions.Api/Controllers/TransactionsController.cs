@@ -36,5 +36,12 @@ namespace FinancialTransactions.Api.Controllers
             await _transactionService.TransferAsync(transactionInput);
             return Ok();
         }
+
+        [HttpPost("request")]
+        public async Task<IActionResult> RequestAsync(TransactionInput transactionInput)
+        {
+            await _transactionService.RequestAsync(transactionInput);
+            return Ok(transactionInput);
+        }
     }
 }
