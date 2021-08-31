@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FinancialTransactions.Validation;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancialTransactions.Services
 {
@@ -76,7 +77,7 @@ namespace FinancialTransactions.Services
             if (value <= 0)
             {
                 var message = $"Not allowed to credit less or equal to 0.";
-                throw new FluentValidation.ValidationException(message);
+                throw new ValidationException(message);
             }
             BankingOperation(accountId, value);
         }
@@ -84,11 +85,11 @@ namespace FinancialTransactions.Services
         private void BankingOperation(int accountId, decimal value)
         {
             var account = _financialTransactionsDatabase.Query<Account>().Include(e => e.Credits).FirstOrDefault(e => e.Id == accountId);
-            Validator.ValidateNotNullable(account);
+            EntityValidator.ValidateNotNullable(account);
             if (value < 0 && account.Balance < value)
             {
                 var message = $"Insufficient balance to transfer, the balance should be grather than or equal to {-value}.";
-                throw new FluentValidation.ValidationException(message);
+                throw new ValidationException(message);
             }
             account.Balance += value;
             account.Credits.Add(new Credit

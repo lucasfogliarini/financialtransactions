@@ -1,12 +1,10 @@
 ﻿using FinancialTransactions.Entities.Abstractions;
-using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancialTransactions.Validation
 {
-    public static class Validator
+    public static class EntityValidator
     {
         public static void ValidateNotNullable<TEntity>(TEntity entity) where TEntity : IEntity
         {

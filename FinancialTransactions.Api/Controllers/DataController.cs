@@ -4,6 +4,7 @@ using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancialTransactions.Api.Controllers
 {
@@ -34,7 +35,7 @@ namespace FinancialTransactions.Api.Controllers
             {
                 if (!this.User.Identity.IsAuthenticated)
                 {
-                    throw new FluentValidation.ValidationException("Usuário não autenticado.");
+                    throw new ValidationException("Usuário não autenticado.");
                 }
                 var emailClaim = this.User.FindFirst(ClaimTypes.Email);
                 return emailClaim.Value;

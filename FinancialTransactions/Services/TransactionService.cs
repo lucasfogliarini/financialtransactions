@@ -1,5 +1,4 @@
 ﻿using FinancialTransactions.Entities;
-using Microsoft.EntityFrameworkCore;
 using FinancialTransactions.Databases.Abstractions;
 using FinancialTransactions.Services.Abstractions;
 using System;
@@ -7,8 +6,8 @@ using System.Linq;
 using FinancialTransactions.Inputs.Abstractions;
 using FinancialTransactions.Validation;
 using System.Threading.Tasks;
-using FinancialTransactions.Services;
 using FinancialTransactions.Entities.Abstractions;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancialTransactions
 {
@@ -34,8 +33,11 @@ namespace FinancialTransactions
         public async Task<ITransaction> TransferAsync(int transactionId)
         {
             var transaction = _financialTransactionsDatabase.Query<Transaction>().FirstOrDefault(e => e.Id == transactionId);
-
-            Validator.ValidateNotNullable(transaction);
+            EntityValidator.ValidateNotNullable(transaction);
+            if (transaction.Status == TransactionStatus.Transferred)
+            {
+                throw new ValidationException("The transaction has already been transferred.");
+            }
 
             await TransferAsync(transaction);
             return transaction;
@@ -55,7 +57,7 @@ namespace FinancialTransactions
             if (transactionInput.Value <= 0)
             {
                 var message = $"Not allowed to transfer less or equal to 0.";
-                throw new FluentValidation.ValidationException(message);
+                throw new ValidationException(message);
             }
             var transaction = new Transaction
             {
@@ -74,7 +76,7 @@ namespace FinancialTransactions
             _accountService.Debit(transaction.FromId, transaction.Value);
             _accountService.Credit(transaction.ToId, transaction.Value);
 
-            transaction.Status = TransactionStatus.Transfered;
+            transaction.Status = TransactionStatus.Transferred;
 
             _financialTransactionsDatabase.Update(transaction);
 

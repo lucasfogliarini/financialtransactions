@@ -1,10 +1,10 @@
 ﻿using FinancialTransactions.Entities.Abstractions;
 using FinancialTransactions.Databases.Abstractions;
-using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace FinancialTransactions.Databases
 {
