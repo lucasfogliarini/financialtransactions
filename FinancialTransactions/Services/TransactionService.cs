@@ -24,7 +24,30 @@ namespace FinancialTransactions
             _accountService = accountService;
         }
 
-        private ITransaction AddTransaction(TransactionInput transactionInput)
+        public async Task RequestAsync(TransactionInput transactionInput)
+        {
+            AddTransaction(transactionInput);
+            await _financialTransactionsDatabase.CommitAsync();
+        }
+
+        public async Task TransferAsync(int transactionId)
+        {
+            var transaction = _financialTransactionsDatabase.Query<Transaction>().FirstOrDefault(e => e.Id == transactionId);
+
+            Validator.ValidateNotNullable(transaction);
+
+            await TransferAsync(transaction);
+        }
+
+        public async Task TransferAsync(TransactionInput transactionInput)
+        {
+            var transaction = AddTransaction(transactionInput);
+            await _financialTransactionsDatabase.CommitAsync();
+
+            await TransferAsync(transaction);
+        }
+
+        private Transaction AddTransaction(TransactionInput transactionInput)
         {
             if (transactionInput.Value <= 0)
             {
@@ -43,23 +66,13 @@ namespace FinancialTransactions
             return transaction;
         }
 
-        public async Task TransferAsync(TransactionInput transactionInput)
+        private async Task TransferAsync(Transaction transaction)
         {
-            var transaction = AddTransaction(transactionInput);
-            transaction.Status = TransactionStatus.Transfering;
-            await _financialTransactionsDatabase.CommitAsync();
-
-            _accountService.Debit(transactionInput.FromId, transactionInput.Value);
-            _accountService.Credit(transactionInput.ToId, transactionInput.Value);
+            _accountService.Debit(transaction.FromId, transaction.Value);
+            _accountService.Credit(transaction.ToId, transaction.Value);
 
             transaction.Status = TransactionStatus.Transfered;
 
-            await _financialTransactionsDatabase.CommitAsync();
-        }
-
-        public async Task RequestAsync(TransactionInput transactionInput)
-        {
-            AddTransaction(transactionInput);
             await _financialTransactionsDatabase.CommitAsync();
         }
     }
