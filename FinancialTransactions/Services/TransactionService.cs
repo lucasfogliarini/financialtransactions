@@ -24,27 +24,30 @@ namespace FinancialTransactions
             _accountService = accountService;
         }
 
-        public async Task RequestAsync(TransactionInput transactionInput)
+        public async Task<ITransaction> RequestAsync(TransactionInput transactionInput)
         {
-            AddTransaction(transactionInput);
+            var transaction = AddTransaction(transactionInput);
             await _financialTransactionsDatabase.CommitAsync();
+            return transaction;
         }
 
-        public async Task TransferAsync(int transactionId)
+        public async Task<ITransaction> TransferAsync(int transactionId)
         {
             var transaction = _financialTransactionsDatabase.Query<Transaction>().FirstOrDefault(e => e.Id == transactionId);
 
             Validator.ValidateNotNullable(transaction);
 
             await TransferAsync(transaction);
+            return transaction;
         }
 
-        public async Task TransferAsync(TransactionInput transactionInput)
+        public async Task<ITransaction> TransferAsync(TransactionInput transactionInput)
         {
             var transaction = AddTransaction(transactionInput);
             await _financialTransactionsDatabase.CommitAsync();
 
             await TransferAsync(transaction);
+            return transaction;
         }
 
         private Transaction AddTransaction(TransactionInput transactionInput)
@@ -72,6 +75,8 @@ namespace FinancialTransactions
             _accountService.Credit(transaction.ToId, transaction.Value);
 
             transaction.Status = TransactionStatus.Transfered;
+
+            _financialTransactionsDatabase.Update(transaction);
 
             await _financialTransactionsDatabase.CommitAsync();
         }

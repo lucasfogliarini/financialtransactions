@@ -31,8 +31,6 @@ namespace FinancialTransactions.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var divagandoDbConnectionString = Configuration.GetConnectionString("DivagandoDb");
-            //services.AddAllServices(divagandoDbConnectionString);
             services.AddTestServices();
             services.AddControllers().AddNewtonsoftJson(options =>
                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -80,7 +78,7 @@ namespace FinancialTransactions.Api
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapControllers();
+                endpoints.MapControllers();
                 endpoints.Select().Expand().Filter().OrderBy().MaxTop(50).Count();
                 endpoints.MapODataRoute("ODataRoute", "odata", GenerateEdmModel(app.ApplicationServices));
                 endpoints.MapGet("/version", async context =>

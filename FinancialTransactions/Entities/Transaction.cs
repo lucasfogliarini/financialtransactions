@@ -3,7 +3,7 @@ using System;
 
 namespace FinancialTransactions.Entities
 {
-    public class Transaction : ITransaction, IEntity
+    public class Transaction : ITransaction
     {
         public int Id { get; set; }
         public decimal Value { get; set; }        

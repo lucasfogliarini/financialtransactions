@@ -22,6 +22,13 @@ namespace FinancialTransactions.Api.Controllers
             _transactionService = transactionService;
         }
 
+        [HttpPost("request")]
+        public async Task<IActionResult> RequestAsync(TransactionInput transactionInput)
+        {
+            var transaction = await _transactionService.RequestAsync(transactionInput);
+            return Ok(transaction);
+        }
+
         [HttpPost]
         public async Task<IActionResult> TransferAsync(decimal value, int toId)
         {
@@ -33,15 +40,16 @@ namespace FinancialTransactions.Api.Controllers
                 ToId = toId
             };
 
-            await _transactionService.TransferAsync(transactionInput);
-            return Ok();
+            var transaction = await _transactionService.TransferAsync(transactionInput);
+            return Ok(transaction);
         }
 
-        [HttpPost("request")]
-        public async Task<IActionResult> RequestAsync(TransactionInput transactionInput)
+        [HttpPut("{transactionId}")]
+        public async Task<IActionResult> TransferAsync(int transactionId)
         {
-            await _transactionService.RequestAsync(transactionInput);
-            return Ok(transactionInput);
+            var transaction = await _transactionService.TransferAsync(transactionId);
+            return Ok(transaction);
         }
+
     }
 }

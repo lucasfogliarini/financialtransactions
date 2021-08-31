@@ -1,12 +1,13 @@
-﻿using FinancialTransactions.Inputs.Abstractions;
+﻿using FinancialTransactions.Entities.Abstractions;
+using FinancialTransactions.Inputs.Abstractions;
 using System.Threading.Tasks;
 
 namespace FinancialTransactions.Services.Abstractions
 {
     public interface ITransactionService
     {
-        Task RequestAsync(TransactionInput transactionInput);
-        Task TransferAsync(int transactionId);
-        Task TransferAsync(TransactionInput transactionInput);
+        Task<ITransaction> RequestAsync(TransactionInput transactionInput);
+        Task<ITransaction> TransferAsync(int transactionId);
+        Task<ITransaction> TransferAsync(TransactionInput transactionInput);
     }
 }
