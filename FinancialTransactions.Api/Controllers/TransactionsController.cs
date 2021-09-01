@@ -29,7 +29,7 @@ namespace FinancialTransactions.Api.Controllers
             return Ok(transaction);
         }
 
-        [HttpPost]
+        [HttpPost("transfer")]
         public async Task<IActionResult> TransferAsync(decimal value, int toId)
         {
             var from = await _accountService.GetOrCreateAsync(AuthenticatedUserEmail);
@@ -44,7 +44,7 @@ namespace FinancialTransactions.Api.Controllers
             return Ok(transaction);
         }
 
-        [HttpPut("{transactionId}")]
+        [HttpPut("{transactionId}/transfer")]
         public async Task<IActionResult> TransferAsync(int transactionId)
         {
             var transaction = await _transactionService.TransferAsync(transactionId);
