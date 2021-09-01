@@ -84,7 +84,7 @@ namespace FinancialTransactions.Services
 
         private void BankingOperation(int accountId, decimal value)
         {
-            var account = _financialTransactionsDatabase.Query<Account>().Include(e => e.Credits).FirstOrDefault(e => e.Id == accountId);
+            var account = _financialTransactionsDatabase.Query<Account>().FirstOrDefault(e => e.Id == accountId);
             EntityValidator.ValidateNotNullable(account);
             if (value < 0 && account.Balance < value)
             {
@@ -92,11 +92,6 @@ namespace FinancialTransactions.Services
                 throw new ValidationException(message);
             }
             account.Balance += value;
-            account.Credits.Add(new Credit
-            {
-                Value = value,
-                CreationTime = DateTime.Now
-            });
             _financialTransactionsDatabase.Update(account);
         }
     }
