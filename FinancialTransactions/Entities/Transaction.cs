@@ -13,7 +13,7 @@ namespace FinancialTransactions.Entities
         public Account To { get; set; }
         public TransactionStatus Status { get; set; }
         public DateTime CreationTime { get; set; }
+        public DateTime? PromisedTime { get; set; }
+        public DateTime? TransferTime { get; set; }
     }
-
-    
 }

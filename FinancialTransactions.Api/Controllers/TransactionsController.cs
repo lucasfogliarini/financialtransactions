@@ -51,5 +51,12 @@ namespace FinancialTransactions.Api.Controllers
             return Ok(transaction);
         }
 
+        [HttpPut("{transactionId}/promise")]
+        public async Task<IActionResult> PromiseAsync(int transactionId)
+        {
+            var transaction = await _transactionService.PromiseAsync(transactionId);
+            return Ok(transaction);
+        }
+
     }
 }

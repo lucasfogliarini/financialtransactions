@@ -8,6 +8,7 @@
     public enum TransactionStatus
     {
         Requested,
+        Promised,
         Transferred,
     }
 }

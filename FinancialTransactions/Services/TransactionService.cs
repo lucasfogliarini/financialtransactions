@@ -30,6 +30,22 @@ namespace FinancialTransactions
             return transaction;
         }
 
+        public async Task<ITransaction> PromiseAsync(int transactionId)
+        {
+            var transaction = _financialTransactionsDatabase.Query<Transaction>().FirstOrDefault(e => e.Id == transactionId);
+            EntityValidator.ValidateNotNullable(transaction);
+            if (transaction.Status != TransactionStatus.Requested)
+            {
+                throw new ValidationException("The transaction must be requested.");
+            }
+            transaction.Status = TransactionStatus.Promised;
+            transaction.PromisedTime = DateTime.Now.Date.AddDays(1).AddHours(13);//parametrizável
+
+            _financialTransactionsDatabase.Update(transaction);
+            await _financialTransactionsDatabase.CommitAsync();
+
+            return transaction;
+        }
         public async Task<ITransaction> TransferAsync(int transactionId)
         {
             var transaction = _financialTransactionsDatabase.Query<Transaction>().FirstOrDefault(e => e.Id == transactionId);
@@ -77,6 +93,7 @@ namespace FinancialTransactions
             _accountService.Credit(transaction.ToId, transaction.Value);
 
             transaction.Status = TransactionStatus.Transferred;
+            transaction.TransferTime = DateTime.Now;
 
             _financialTransactionsDatabase.Update(transaction);
 
