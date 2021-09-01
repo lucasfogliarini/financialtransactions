@@ -19,7 +19,7 @@ namespace FinancialTransactions.Services
         {
             _financialTransactionsDatabase = database;
         }
-        public async Task<ILegalPerson> CreateAsync(string email, string name = null)
+        public async Task<IAccount> CreateAsync(string email, string name = null)
         {
             var account = new Account
             {
@@ -32,7 +32,7 @@ namespace FinancialTransactions.Services
             return account;
         }
 
-        public async Task<ILegalPerson> GetOrCreateAsync(string email)
+        public async Task<IAccount> GetOrCreateAsync(string email)
         {
             var account = Get(email);
             if (account != null)
@@ -42,7 +42,7 @@ namespace FinancialTransactions.Services
             return account;
         }
 
-        public ILegalPerson Get(string email)
+        public IAccount Get(string email)
         {
             var account = _financialTransactionsDatabase.Query<Account>().FirstOrDefault(e => e.Email == email);
             return account;

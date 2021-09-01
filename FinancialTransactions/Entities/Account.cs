@@ -3,7 +3,7 @@ using System;
 
 namespace FinancialTransactions.Entities
 {
-    public class Account : ILegalPerson
+    public class Account : IAccount
     {
         public int Id { get; set; }
         public string Name { get; set; }
