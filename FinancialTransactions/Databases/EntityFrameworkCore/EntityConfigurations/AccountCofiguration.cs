@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FinancialTransactions.EntityConfigurations
+namespace FinancialTransactions.EntityFrameworkCore
 {
     internal sealed class AccountCofiguration : IEntityTypeConfiguration<Account>
     {

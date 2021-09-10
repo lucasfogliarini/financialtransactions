@@ -1,7 +1,7 @@
 ﻿using FinancialTransactions.Entities.Abstractions;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace FinancialTransactions.EntityConfigurations
+namespace FinancialTransactions.EntityFrameworkCore
 {
     public static class EntityConfigurationExtensions
     {

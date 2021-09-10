@@ -1,5 +1,4 @@
 ﻿using FinancialTransactions.Gateways.PaymentGateway;
-using FinancialTransactions.Databases;
 using FinancialTransactions.Databases.Abstractions;
 using FinancialTransactions.Services;
 using FinancialTransactions.Services.Abstractions;
@@ -7,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http.Headers;
+using FinancialTransactions.EntityFrameworkCore;
 
 namespace FinancialTransactions
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace FinancialTransactions.Databases
+namespace FinancialTransactions.EntityFrameworkCore
 {
     public class FinancialTransactionsDbContext : DbContext
     {

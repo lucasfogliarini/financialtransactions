@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace FinancialTransactions.Databases
+namespace FinancialTransactions.EntityFrameworkCore
 {
     internal class FinancialTransactionsDatabase : IFinancialTransactionsDatabase
     {
