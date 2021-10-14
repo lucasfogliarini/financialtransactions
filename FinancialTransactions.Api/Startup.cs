@@ -4,15 +4,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNet.OData.Builder;
 using System;
-using Microsoft.AspNet.OData.Extensions;
 using System.Linq;
 using FinancialTransactions.Api.Controllers;
 using Microsoft.OData.Edm;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using FinancialTransactions.Services.Abstractions;
+using Microsoft.AspNetCore.OData;
+using Microsoft.OData.ModelBuilder;
 
 namespace FinancialTransactions.Api
 {
@@ -40,7 +40,7 @@ namespace FinancialTransactions.Api
                 c.SwaggerDoc(APP_NAME, new OpenApiInfo { Title = "FinancialTransactions.Api", Version = VERSION });
             });
             services.AddCors();
-            services.AddOData();
+            services.AddControllers().AddOData(opt => opt.AddRouteComponents("odata", GetEdmModel()).Select().Expand().Filter().OrderBy().SetMaxTop(50).Count());
             services.AddLogging((loggingBuilder) =>
             {
                 loggingBuilder.AddDebug();
@@ -79,8 +79,6 @@ namespace FinancialTransactions.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.Select().Expand().Filter().OrderBy().MaxTop(50).Count();
-                endpoints.MapODataRoute("ODataRoute", "odata", GenerateEdmModel(app.ApplicationServices));
                 endpoints.MapGet("/version", async context =>
                 {
                     await context.Response.WriteAsync(VERSION);
@@ -88,9 +86,9 @@ namespace FinancialTransactions.Api
             });
         }
 
-        private IEdmModel GenerateEdmModel(IServiceProvider serviceProvider)
+        private IEdmModel GetEdmModel()
         {
-            var builder = new ODataConventionModelBuilder(serviceProvider);
+            var builder = new ODataConventionModelBuilder();
             builder.EnableLowerCamelCase();
             var odataControllers = GetType().Assembly.GetTypes().Where(e => e.BaseType.Name == typeof(DataController<>).Name);
             foreach (var odataController in odataControllers)

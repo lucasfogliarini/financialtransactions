@@ -1,10 +1,12 @@
 ﻿using FinancialTransactions.Entities.Abstractions;
 using FinancialTransactions.Databases.Abstractions;
-using Microsoft.AspNet.OData;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Formatter;
 
 namespace FinancialTransactions.Api.Controllers
 {
