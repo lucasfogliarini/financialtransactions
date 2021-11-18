@@ -1,4 +1,4 @@
-﻿using FinancialTransactions.Entities;
+﻿using FinancialTransactions.Entities.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

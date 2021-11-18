@@ -1,6 +1,6 @@
-﻿using FinancialTransactions.Entities;
+﻿using FinancialTransactions.Databases.Abstractions;
+using FinancialTransactions.Entities.Abstractions;
 using FinancialTransactions.Inputs.Abstractions;
-using FinancialTransactions.Databases.Abstractions;
 using FinancialTransactions.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -27,7 +27,7 @@ namespace FinancialTransactions.Api.Controllers
         public async Task<IActionResult> SignInAsync(AuthenticationInput authenticationInput)
         {
             var account = await _accountService.GetOrCreateAsync(authenticationInput.Email);
-            var jwToken  = _jwt.GenerateToken(account.Id, account.Email);
+            var jwToken = _jwt.GenerateToken(account.Id, account.Email);
             await _accountService.SignInAsync(account.Id, jwToken, authenticationInput);
             return Ok(jwToken);
         }

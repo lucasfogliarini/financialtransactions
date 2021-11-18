@@ -1,9 +1,8 @@
-﻿using FinancialTransactions.Entities.Abstractions;
-using System;
+﻿using System;
 
-namespace FinancialTransactions.Entities
+namespace FinancialTransactions.Entities.Abstractions
 {
-    public class Account : IAccount
+    public class Account : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

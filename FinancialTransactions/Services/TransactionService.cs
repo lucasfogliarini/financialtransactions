@@ -1,13 +1,12 @@
-﻿using FinancialTransactions.Entities;
-using FinancialTransactions.Databases.Abstractions;
-using FinancialTransactions.Services.Abstractions;
-using System;
-using System.Linq;
-using FinancialTransactions.Inputs.Abstractions;
-using FinancialTransactions.Validation;
-using System.Threading.Tasks;
+﻿using FinancialTransactions.Databases.Abstractions;
 using FinancialTransactions.Entities.Abstractions;
+using FinancialTransactions.Inputs.Abstractions;
+using FinancialTransactions.Services.Abstractions;
+using FinancialTransactions.Validation;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FinancialTransactions
 {
@@ -23,14 +22,14 @@ namespace FinancialTransactions
             _accountService = accountService;
         }
 
-        public async Task<ITransaction> RequestAsync(TransactionInput transactionInput)
+        public async Task<Transaction> RequestAsync(TransactionInput transactionInput)
         {
             var transaction = AddTransaction(transactionInput);
             await _financialTransactionsDatabase.CommitAsync();
             return transaction;
         }
 
-        public async Task<ITransaction> PromiseAsync(int transactionId)
+        public async Task<Transaction> PromiseAsync(int transactionId)
         {
             var transaction = _financialTransactionsDatabase.Query<Transaction>().FirstOrDefault(e => e.Id == transactionId);
             EntityValidator.ValidateNotNullable(transaction);
@@ -46,7 +45,7 @@ namespace FinancialTransactions
 
             return transaction;
         }
-        public async Task<ITransaction> TransferAsync(int transactionId)
+        public async Task<Transaction> TransferAsync(int transactionId)
         {
             var transaction = _financialTransactionsDatabase.Query<Transaction>().FirstOrDefault(e => e.Id == transactionId);
             EntityValidator.ValidateNotNullable(transaction);
@@ -59,7 +58,7 @@ namespace FinancialTransactions
             return transaction;
         }
 
-        public async Task<ITransaction> TransferAsync(TransactionInput transactionInput)
+        public async Task<Transaction> TransferAsync(TransactionInput transactionInput)
         {
             var transaction = AddTransaction(transactionInput);
             await _financialTransactionsDatabase.CommitAsync();

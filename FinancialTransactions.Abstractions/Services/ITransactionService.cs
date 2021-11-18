@@ -6,9 +6,9 @@ namespace FinancialTransactions.Services.Abstractions
 {
     public interface ITransactionService
     {
-        Task<ITransaction> RequestAsync(TransactionInput transactionInput);
-        Task<ITransaction> PromiseAsync(int transactionId);
-        Task<ITransaction> TransferAsync(int transactionId);
-        Task<ITransaction> TransferAsync(TransactionInput transactionInput);
+        Task<Transaction> RequestAsync(TransactionInput transactionInput);
+        Task<Transaction> PromiseAsync(int transactionId);
+        Task<Transaction> TransferAsync(int transactionId);
+        Task<Transaction> TransferAsync(TransactionInput transactionInput);
     }
 }

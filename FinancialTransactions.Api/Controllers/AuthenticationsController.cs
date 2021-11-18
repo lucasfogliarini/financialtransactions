@@ -1,5 +1,5 @@
 ﻿using FinancialTransactions.Databases.Abstractions;
-using FinancialTransactions.Entities;
+using FinancialTransactions.Entities.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

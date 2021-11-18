@@ -1,13 +1,12 @@
-﻿using FinancialTransactions.Entities;
+﻿using FinancialTransactions.Databases.Abstractions;
 using FinancialTransactions.Entities.Abstractions;
 using FinancialTransactions.Inputs.Abstractions;
-using FinancialTransactions.Databases.Abstractions;
 using FinancialTransactions.Services.Abstractions;
+using FinancialTransactions.Validation;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using FinancialTransactions.Validation;
-using System.ComponentModel.DataAnnotations;
 
 namespace FinancialTransactions.Services
 {
@@ -18,7 +17,7 @@ namespace FinancialTransactions.Services
         {
             _financialTransactionsDatabase = database;
         }
-        public async Task<IAccount> CreateAsync(string email, string name = null)
+        public async Task<Account> CreateAsync(string email, string name = null)
         {
             var account = new Account
             {
@@ -31,7 +30,7 @@ namespace FinancialTransactions.Services
             return account;
         }
 
-        public async Task<IAccount> GetOrCreateAsync(string email)
+        public async Task<Account> GetOrCreateAsync(string email)
         {
             var account = Get(email);
             if (account != null)
@@ -41,7 +40,7 @@ namespace FinancialTransactions.Services
             return account;
         }
 
-        public IAccount Get(string email)
+        public Account Get(string email)
         {
             var account = _financialTransactionsDatabase.Query<Account>().FirstOrDefault(e => e.Email == email);
             return account;

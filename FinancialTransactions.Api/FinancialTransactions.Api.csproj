@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FinancialTransactions.Abstractions\FinancialTransactions.Abstractions.csproj" />
     <ProjectReference Include="..\FinancialTransactions\FinancialTransactions.csproj" />
   </ItemGroup>
 

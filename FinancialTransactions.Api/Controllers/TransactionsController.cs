@@ -1,6 +1,6 @@
-﻿using FinancialTransactions.Entities;
+﻿using FinancialTransactions.Databases.Abstractions;
+using FinancialTransactions.Entities.Abstractions;
 using FinancialTransactions.Inputs.Abstractions;
-using FinancialTransactions.Databases.Abstractions;
 using FinancialTransactions.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
