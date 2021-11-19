@@ -23,21 +23,8 @@ namespace FinancialTransactions.Services
         {
             try
             {
-                _accountService.CreateAsync("finance@supplier.com", "Supplier");
-                _accountService.CreateAsync("finance@parceiro1.com", "Parceiro 1");
-                _accountService.CreateAsync("finance@cliente1.com", "Cliente 1");
-                _accountService.CreateAsync("finance@totvs.com", "TOTVS");
-                
-
-                //CreateParticipant("lucasfogliarini", "Lucas Fogliarini Pedroso", "51992364249", "lucasfogliarini@gmail.com");
-                //CreateParticipant("luanabueno", "Luana Bueno", "5193840006", "luanabuenoflores@gmail.com");
-                //CreateParticipant("guistaub", "Guilherme Staub", "5194171008", "gui_staub@hotmail.com");
-                //CreateParticipant("micheleborba", "Michele Borba", "5198644493", "");
-                //CreateParticipant("felipealmeida", "Felipe Almeida", "51980451264", "felipealmeida1395@gmail.com");
-                //CreateParticipant("grazieleribeiro", "Graziele Ribeiro", "5199779985", "");
-                //CreateParticipant("schieck", "Ricardo Schieck", "5596258202", "ricardoschieck@gmail.com");
-                //CreateParticipant("horlle", "Gabriel Horlle", "5191388345", "grhorlle@gmail.com");
-                //CreateParticipant("jonmoon", "Jonathan Monteiro", "5191388345", "jonathan.m.m@live.com");
+                _accountService.CreateAsync("lucasfogliarini@gmail.com", "Lucas Fogliarini");
+                _accountService.CreateAsync("luanabuenoflores@gmail.com", "Luana Flores");
             }
             catch (Exception)
             {

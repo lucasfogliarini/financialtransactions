@@ -17,7 +17,7 @@ namespace FinancialTransactions.Services
         {
             _financialTransactionsDatabase = database;
         }
-        public async Task<Account> CreateAsync(string email, string name = null)
+        public async Task<Account> CreateAsync(string email, string name)
         {
             var account = new Account
             {
@@ -30,19 +30,20 @@ namespace FinancialTransactions.Services
             return account;
         }
 
-        public async Task<Account> GetOrCreateAsync(string email)
+        public async Task<Account> GetOrCreateAsync(string email, string name = null)
         {
-            var account = Get(email);
+            var account = _financialTransactionsDatabase.Query<Account>().FirstOrDefault(e => e.Email == email);
             if (account != null)
                 return account;
 
-            account = await CreateAsync(email);
+            account = await CreateAsync(email, name);
             return account;
         }
 
         public Account Get(string email)
         {
             var account = _financialTransactionsDatabase.Query<Account>().FirstOrDefault(e => e.Email == email);
+            EntityValidator.ValidateNotExists(account, email);
             return account;
         }
 

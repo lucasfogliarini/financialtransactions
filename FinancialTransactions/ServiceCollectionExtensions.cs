@@ -1,11 +1,8 @@
-﻿using FinancialTransactions.Gateways.PaymentGateway;
-using FinancialTransactions.Databases.Abstractions;
+﻿using FinancialTransactions.Databases.Abstractions;
 using FinancialTransactions.Services;
 using FinancialTransactions.Services.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Net.Http.Headers;
 using FinancialTransactions.EntityFrameworkCore;
 
 namespace FinancialTransactions
@@ -20,7 +17,7 @@ namespace FinancialTransactions
         {
             serviceCollection.AddLogicalServices();
             serviceCollection.AddDatabases();
-            serviceCollection.AddGateways();
+            serviceCollection.AddHttpClients();
             serviceCollection.AddDbContext<FinancialTransactionsDbContext>(options => options.UseSqlServer(divagandoDbConnectionString));
             return serviceCollection;
         }
@@ -28,7 +25,7 @@ namespace FinancialTransactions
         {
             serviceCollection.AddLogicalServices();
             serviceCollection.AddDatabases();
-            serviceCollection.AddGateways();
+            serviceCollection.AddHttpClients();
             serviceCollection.AddDbContext<FinancialTransactionsDbContext>(options => options.UseInMemoryDatabase("divagandoDb"));
             return serviceCollection;
         }
@@ -52,18 +49,11 @@ namespace FinancialTransactions
             serviceCollection.AddScoped<IFinancialTransactionsDatabase, FinancialTransactionsDatabase>();
         }
         /// <summary>
-        /// Add gateway services.
+        /// Add httpClient services.
         /// </summary>
         /// <param name="serviceCollection"></param>
-        public static void AddGateways(this IServiceCollection serviceCollection)
+        public static void AddHttpClients(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddHttpClient<IPaymentGateway, MercadoPagoGateway>((httpClient) =>
-            {
-                httpClient.BaseAddress = new Uri("https://api.mercadopago.com/");
-                var token = "TEST-8412785768643690-100418-045e0c16d549cf40c6939842e1c4c56f-61441717";
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                return new MercadoPagoGateway(httpClient);
-            });
         }
     }
 }

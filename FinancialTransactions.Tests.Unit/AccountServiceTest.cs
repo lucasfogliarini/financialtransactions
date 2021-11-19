@@ -20,12 +20,14 @@ namespace FinancialTransactions.Tests.Unit
         {
             //Given
             string email = "lucasfogliarini@gmail.com";
+            string name = "lucasfogliarini";
 
             //When
-            var account = await _accountService.GetOrCreateAsync(email);
+            var account = await _accountService.GetOrCreateAsync(email, name);
 
             //Then
             Assert.NotNull(account.Email);
+            Assert.NotNull(account.Name);
         }
 
         [Fact]

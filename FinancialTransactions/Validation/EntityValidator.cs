@@ -21,9 +21,8 @@ namespace FinancialTransactions.Validation
             if (entity == null)
             {
                 entity = Activator.CreateInstance<TEntity>();
-                entity.Id = entityId;
                 var entityName = entity.GetType().Name;
-                var message = $"There is no {entityName} with the id '{entity.Id}'";
+                var message = $"There is no {entityName} with the id '{entityId}'";
                 throw new ValidationException(message);
             }
         }

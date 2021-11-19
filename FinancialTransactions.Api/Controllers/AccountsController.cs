@@ -26,7 +26,7 @@ namespace FinancialTransactions.Api.Controllers
         [HttpPost("SignIn")]
         public async Task<IActionResult> SignInAsync(AuthenticationInput authenticationInput)
         {
-            var account = await _accountService.GetOrCreateAsync(authenticationInput.Email);
+            var account = await _accountService.GetOrCreateAsync(authenticationInput.Email, authenticationInput.Name);
             var jwToken = _jwt.GenerateToken(account.Id, account.Email);
             await _accountService.SignInAsync(account.Id, jwToken, authenticationInput);
             return Ok(jwToken);
@@ -35,7 +35,7 @@ namespace FinancialTransactions.Api.Controllers
         [HttpPost("Credit")]
         public async Task<IActionResult> CreditAsync(decimal value)
         {
-            var account = await _accountService.GetOrCreateAsync(AuthenticatedUserEmail);
+            var account = _accountService.Get(AuthenticatedUserEmail);
             await _accountService.CreditAsync(account.Id, value);
             return Ok(value);
         }
