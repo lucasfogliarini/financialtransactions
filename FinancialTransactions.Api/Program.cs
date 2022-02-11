@@ -1,9 +1,10 @@
 using FinancialTransactions;
 using FinancialTransactions.Api;
 using FinancialTransactions.Api.Controllers;
-using FinancialTransactions.Services.Abstractions;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,7 +13,9 @@ using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using Microsoft.OpenApi.Models;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 
 const string VERSION = "0.1.0";
@@ -48,6 +51,29 @@ static WebApplicationBuilder AddServices(WebApplicationBuilder builder)
     });
     Jwt.AddJwtAuthentication(builder.Services, builder.Configuration);
 
+    builder.Services.AddProblemDetails(x =>
+    {
+        x.MapToStatusCode<ValidationException>(StatusCodes.Status400BadRequest);
+        x.Map<ValidationException>(x =>
+        {
+            return new ProblemDetails
+            {
+                Title = HttpStatusCode.BadRequest.ToString(),
+                Detail = x.Message,
+                Status = StatusCodes.Status400BadRequest,
+            };
+        });
+        //x.Map<Exception>(x =>
+        //{
+        //    return new ProblemDetails
+        //    {
+        //        Title = "Ocorreu um problema na aplicação.",
+        //        Detail = x.Message,
+        //        Status = StatusCodes.Status500InternalServerError
+        //    };
+        //});
+    });
+
     return builder;
 }
 
@@ -69,10 +95,12 @@ static void Run(WebApplication app)
 
     app.UseHttpsRedirection();
 
+    app.UseProblemDetails();
+
     app.UseAuthentication();//must be before UseAuthorization
     app.UseAuthorization();
 
-    app.UseMiddleware<RequestMiddleware>();
+    //app.UseMiddleware<RequestMiddleware>();
 
     app.MapControllers();
     app.MapGet("/version", async context =>
